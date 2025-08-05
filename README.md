@@ -4,13 +4,13 @@ An advanced AI-powered arbitrage trading bot that monitors 20+ DeFi protocols ac
 
 ## ✨ Features
 
-### 🔗 Multi-Protocol Support (20+ Protocols)
-- **Ethereum**: Uniswap V2/V3, SushiSwap, Balancer, Curve
-- **Polygon**: QuickSwap, SushiSwap, Uniswap V3, Balancer, Curve  
-- **BSC**: PancakeSwap, SushiSwap
-- **Arbitrum**: Uniswap V3, SushiSwap, Balancer, Curve
-- **Optimism**: Uniswap V3, Curve
-- **Avalanche**: Trader Joe, Pangolin, Curve
+### 🔗 Multi-Protocol Support (30+ Protocols)
+- **Ethereum**: Uniswap V2/V3, SushiSwap, Balancer, Curve, 0x, DODO, KyberSwap
+- **Polygon**: QuickSwap, SushiSwap, Uniswap V3, Balancer, Curve, DODO, KyberSwap
+- **BSC**: PancakeSwap, SushiSwap, DODO, KyberSwap
+- **Arbitrum**: Uniswap V3, SushiSwap, Balancer, Curve, DODO
+- **Optimism**: Uniswap V3, Curve, KyberSwap
+- **Avalanche**: Trader Joe, Pangolin, Curve, Platypus
 
 ### 🧠 AI-Powered Analytics
 - **TensorFlow Neural Network**: 15-feature model for opportunity prediction

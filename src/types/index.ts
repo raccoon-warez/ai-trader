@@ -91,7 +91,12 @@ export enum ProtocolType {
   BALANCER = 'balancer',
   CURVE = 'curve',
   AAVE = 'aave',
-  COMPOUND = 'compound'
+  COMPOUND = 'compound',
+  ZEROX = '0x',
+  DODO = 'dodo',
+  KYBERSWAP = 'kyberswap',
+  GMX = 'gmx',
+  PLATYPUS = 'platypus'
 }
 
 export enum NetworkChain {

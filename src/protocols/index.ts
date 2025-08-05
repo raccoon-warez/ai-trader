@@ -55,6 +55,22 @@ export class ProtocolManager {
             // TODO: Implement Curve protocol
             break;
             
+          case ProtocolType.ZEROX:
+            // TODO: Implement 0x protocol
+            break;
+            
+          case ProtocolType.DODO:
+            // TODO: Implement DODO protocol
+            break;
+            
+          case ProtocolType.KYBERSWAP:
+            // TODO: Implement KyberSwap protocol
+            break;
+            
+          case ProtocolType.PLATYPUS:
+            // TODO: Implement Platypus protocol
+            break;
+            
           default:
             console.warn(`Protocol ${config.name} not implemented yet`);
         }

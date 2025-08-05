@@ -1,4 +1,4 @@
-import { ProtocolConfig, NetworkChain, ProtocolType } from '../types';
+import { ProtocolConfig, NetworkChain, ProtocolType, Token } from '../types';
 
 export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
   [NetworkChain.ETHEREUM]: [
@@ -49,6 +49,36 @@ export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
       factoryAddress: '0xB9fC157394Af804a3578134A6585C0dc9cc990d4',
       routerAddress: '0x99a58482BD75cbab83b27EC03CA68fF489b5788f',
       graphEndpoint: 'https://api.thegraph.com/subgraphs/name/curvefi/curve',
+      rpcUrl: process.env.ETHEREUM_RPC_URL || '',
+      blockTime: 12000,
+      gasPrice: '20000000000'
+    },
+    {
+      name: ProtocolType.ZEROX,
+      chainId: NetworkChain.ETHEREUM,
+      factoryAddress: '0xdef1c0ded9bec7f1a1670819833240f027b25eff',
+      routerAddress: '0xdef1c0ded9bec7f1a1670819833240f027b25eff',
+      graphEndpoint: 'https://api.0x.org/',
+      rpcUrl: process.env.ETHEREUM_RPC_URL || '',
+      blockTime: 12000,
+      gasPrice: '20000000000'
+    },
+    {
+      name: ProtocolType.DODO,
+      chainId: NetworkChain.ETHEREUM,
+      factoryAddress: '0x3A97247DF274a17C59A3bd12735ea3FcDFb49950',
+      routerAddress: '0x8F8Dd7DB1bDA5eD3Da8C9daf3bfa471c12d58486',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/dodoex/dodoex-v2',
+      rpcUrl: process.env.ETHEREUM_RPC_URL || '',
+      blockTime: 12000,
+      gasPrice: '20000000000'
+    },
+    {
+      name: ProtocolType.KYBERSWAP,
+      chainId: NetworkChain.ETHEREUM,
+      factoryAddress: '0x833e4083B7ae46CeA85695c4f7ed25CDAd8886dE',
+      routerAddress: '0x1c87257f5e8609940bc751a07bb085bb7f8cdbe6',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/kybernetwork/kyberswap-elastic-mainnet',
       rpcUrl: process.env.ETHEREUM_RPC_URL || '',
       blockTime: 12000,
       gasPrice: '20000000000'
@@ -105,6 +135,26 @@ export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
       rpcUrl: process.env.POLYGON_RPC_URL || '',
       blockTime: 2000,
       gasPrice: '30000000000'
+    },
+    {
+      name: ProtocolType.DODO,
+      chainId: NetworkChain.POLYGON,
+      factoryAddress: '0x357c5E9cfA8B834EDcef7C7aAbD8F9Db09119d11',
+      routerAddress: '0x8F8Dd7DB1bDA5eD3Da8C9daf3bfa471c12d58486',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/dodoex/dodoex-v2-polygon',
+      rpcUrl: process.env.POLYGON_RPC_URL || '',
+      blockTime: 2000,
+      gasPrice: '30000000000'
+    },
+    {
+      name: ProtocolType.KYBERSWAP,
+      chainId: NetworkChain.POLYGON,
+      factoryAddress: '0x5F1fe642060B5B9658C15721Ea22E982643c095c',
+      routerAddress: '0x6131B5fae19EA4f9D964eAc0408E4408b6B52E1C',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/kybernetwork/kyberswap-elastic-matic',
+      rpcUrl: process.env.POLYGON_RPC_URL || '',
+      blockTime: 2000,
+      gasPrice: '30000000000'
     }
   ],
   [NetworkChain.BSC]: [
@@ -124,6 +174,26 @@ export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
       factoryAddress: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
       routerAddress: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
       graphEndpoint: 'https://api.thegraph.com/subgraphs/name/sushiswap/bsc-exchange',
+      rpcUrl: process.env.BSC_RPC_URL || '',
+      blockTime: 3000,
+      gasPrice: '5000000000'
+    },
+    {
+      name: ProtocolType.DODO,
+      chainId: NetworkChain.BSC,
+      factoryAddress: '0x357c5E9cfA8B834EDcef7C7aAbD8F9Db09119d11',
+      routerAddress: '0x8F8Dd7DB1bDA5eD3Da8C9daf3bfa471c12d58486',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/dodoex/dodoex-v2-bsc',
+      rpcUrl: process.env.BSC_RPC_URL || '',
+      blockTime: 3000,
+      gasPrice: '5000000000'
+    },
+    {
+      name: ProtocolType.KYBERSWAP,
+      chainId: NetworkChain.BSC,
+      factoryAddress: '0x878dFE971d44e9122048308361Cf549E7b509f17',
+      routerAddress: '0x1aFaF59356cAB3C431b3433195769c972c624742',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/kybernetwork/kyberswap-elastic-bsc',
       rpcUrl: process.env.BSC_RPC_URL || '',
       blockTime: 3000,
       gasPrice: '5000000000'
@@ -170,6 +240,16 @@ export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
       rpcUrl: process.env.ARBITRUM_RPC_URL || '',
       blockTime: 250,
       gasPrice: '100000000'
+    },
+    {
+      name: ProtocolType.DODO,
+      chainId: NetworkChain.ARBITRUM,
+      factoryAddress: '0x357c5E9cfA8B834EDcef7C7aAbD8F9Db09119d11',
+      routerAddress: '0x8F8Dd7DB1bDA5eD3Da8C9daf3bfa471c12d58486',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/dodoex/dodoex-v2-arbitrum',
+      rpcUrl: process.env.ARBITRUM_RPC_URL || '',
+      blockTime: 250,
+      gasPrice: '100000000'
     }
   ],
   [NetworkChain.OPTIMISM]: [
@@ -190,6 +270,16 @@ export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
       factoryAddress: '0x2db0E83599a91b508Ac268a6197b8B14F5e72840',
       routerAddress: '0x2db0E83599a91b508Ac268a6197b8B14F5e72840',
       graphEndpoint: 'https://api.thegraph.com/subgraphs/name/curvefi/curve-optimism',
+      rpcUrl: process.env.OPTIMISM_RPC_URL || '',
+      blockTime: 2000,
+      gasPrice: '15000000'
+    },
+    {
+      name: ProtocolType.KYBERSWAP,
+      chainId: NetworkChain.OPTIMISM,
+      factoryAddress: '0x5F1fe642060B5B9658C15721Ea22E982643c095c',
+      routerAddress: '0x6131B5fae19EA4f9D964eAc0408E4408b6B52E1C',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/kybernetwork/kyberswap-elastic-optimism',
       rpcUrl: process.env.OPTIMISM_RPC_URL || '',
       blockTime: 2000,
       gasPrice: '15000000'
@@ -222,6 +312,16 @@ export const PROTOCOL_CONFIGS: Record<string, ProtocolConfig[]> = {
       factoryAddress: '0xb17b674D9c5CB2e441F8e196a2f048A81355d031',
       routerAddress: '0x90f421832199e93d01b64DaF378b183809EB0988',
       graphEndpoint: 'https://api.thegraph.com/subgraphs/name/curvefi/curve-avalanche',
+      rpcUrl: process.env.AVALANCHE_RPC_URL || '',
+      blockTime: 2000,
+      gasPrice: '25000000000'
+    },
+    {
+      name: ProtocolType.PLATYPUS,
+      chainId: NetworkChain.AVALANCHE,
+      factoryAddress: '0x7d7cdC5C433D18A963F345323252A853127828C0',
+      routerAddress: '0x7d7cdC5C433D18A963F345323252A853127828C0',
+      graphEndpoint: 'https://api.thegraph.com/subgraphs/name/platypus-finance/platypus-exchange',
       rpcUrl: process.env.AVALANCHE_RPC_URL || '',
       blockTime: 2000,
       gasPrice: '25000000000'
@@ -258,6 +358,34 @@ export const POPULAR_TOKENS: Record<number, Token[]> = {
       name: 'Dai Stablecoin',
       decimals: 18,
       chainId: NetworkChain.ETHEREUM
+    },
+    {
+      address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+      symbol: 'WBTC',
+      name: 'Wrapped Bitcoin',
+      decimals: 8,
+      chainId: NetworkChain.ETHEREUM
+    },
+    {
+      address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+      symbol: 'UNI',
+      name: 'Uniswap',
+      decimals: 18,
+      chainId: NetworkChain.ETHEREUM
+    },
+    {
+      address: '0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9',
+      symbol: 'AAVE',
+      name: 'Aave Token',
+      decimals: 18,
+      chainId: NetworkChain.ETHEREUM
+    },
+    {
+      address: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
+      symbol: 'LINK',
+      name: 'Chainlink',
+      decimals: 18,
+      chainId: NetworkChain.ETHEREUM
     }
   ],
   [NetworkChain.POLYGON]: [
@@ -281,6 +409,161 @@ export const POPULAR_TOKENS: Record<number, Token[]> = {
       name: 'Tether USD',
       decimals: 6,
       chainId: NetworkChain.POLYGON
+    },
+    {
+      address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',
+      symbol: 'DAI',
+      name: 'Dai Stablecoin',
+      decimals: 18,
+      chainId: NetworkChain.POLYGON
+    },
+    {
+      address: '0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6',
+      symbol: 'WBTC',
+      name: 'Wrapped Bitcoin',
+      decimals: 8,
+      chainId: NetworkChain.POLYGON
+    },
+    {
+      address: '0xb33EaAd8d922B1083446DC23f610c2567fB5180f',
+      symbol: 'UNI',
+      name: 'Uniswap',
+      decimals: 18,
+      chainId: NetworkChain.POLYGON
+    }
+  ],
+  [NetworkChain.BSC]: [
+    {
+      address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+      symbol: 'WBNB',
+      name: 'Wrapped BNB',
+      decimals: 18,
+      chainId: NetworkChain.BSC
+    },
+    {
+      address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+      symbol: 'USDC',
+      name: 'USD Coin',
+      decimals: 18,
+      chainId: NetworkChain.BSC
+    },
+    {
+      address: '0x55d398326f99059fF775485246999027B3197955',
+      symbol: 'USDT',
+      name: 'Tether USD',
+      decimals: 18,
+      chainId: NetworkChain.BSC
+    },
+    {
+      address: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3',
+      symbol: 'DAI',
+      name: 'Dai Token',
+      decimals: 18,
+      chainId: NetworkChain.BSC
+    },
+    {
+      address: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+      symbol: 'WBTC',
+      name: 'BTCB Token',
+      decimals: 18,
+      chainId: NetworkChain.BSC
+    },
+    {
+      address: '0xBf5140A22578168FD562DCcF235E5D43A02ce9B1',
+      symbol: 'UNI',
+      name: 'Uniswap Token',
+      decimals: 18,
+      chainId: NetworkChain.BSC
+    }
+  ],
+  [NetworkChain.ARBITRUM]: [
+    {
+      address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
+      symbol: 'WETH',
+      name: 'Wrapped Ether',
+      decimals: 18,
+      chainId: NetworkChain.ARBITRUM
+    },
+    {
+      address: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
+      symbol: 'USDC',
+      name: 'USD Coin',
+      decimals: 6,
+      chainId: NetworkChain.ARBITRUM
+    },
+    {
+      address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+      symbol: 'USDT',
+      name: 'Tether USD',
+      decimals: 6,
+      chainId: NetworkChain.ARBITRUM
+    },
+    {
+      address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1',
+      symbol: 'DAI',
+      name: 'Dai Stablecoin',
+      decimals: 18,
+      chainId: NetworkChain.ARBITRUM
+    }
+  ],
+  [NetworkChain.OPTIMISM]: [
+    {
+      address: '0x4200000000000000000000000000000000000006',
+      symbol: 'WETH',
+      name: 'Wrapped Ether',
+      decimals: 18,
+      chainId: NetworkChain.OPTIMISM
+    },
+    {
+      address: '0x7F5c764cBc14f9669B88837ca1490cCa17c31607',
+      symbol: 'USDC',
+      name: 'USD Coin',
+      decimals: 6,
+      chainId: NetworkChain.OPTIMISM
+    },
+    {
+      address: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58',
+      symbol: 'USDT',
+      name: 'Tether USD',
+      decimals: 6,
+      chainId: NetworkChain.OPTIMISM
+    },
+    {
+      address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1',
+      symbol: 'DAI',
+      name: 'Dai Stablecoin',
+      decimals: 18,
+      chainId: NetworkChain.OPTIMISM
+    }
+  ],
+  [NetworkChain.AVALANCHE]: [
+    {
+      address: '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
+      symbol: 'WAVAX',
+      name: 'Wrapped AVAX',
+      decimals: 18,
+      chainId: NetworkChain.AVALANCHE
+    },
+    {
+      address: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
+      symbol: 'USDC',
+      name: 'USD Coin',
+      decimals: 6,
+      chainId: NetworkChain.AVALANCHE
+    },
+    {
+      address: '0xc7198437980c041c805A1EDcbA50c1Ce5db95118',
+      symbol: 'USDT',
+      name: 'Tether USD',
+      decimals: 6,
+      chainId: NetworkChain.AVALANCHE
+    },
+    {
+      address: '0xd586E7F844cEa2F87f50152665BCbc2C279D8d70',
+      symbol: 'DAI',
+      name: 'Dai Stablecoin',
+      decimals: 18,
+      chainId: NetworkChain.AVALANCHE
     }
   ]
 };
