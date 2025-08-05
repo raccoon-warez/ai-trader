@@ -211,6 +211,9 @@ export class ArbitrageDetector extends EventEmitter {
         }
       ];
 
+      // Calculate potential earnings in USD
+      const potentialEarningsUSD = await this.estimateEarningsInUSD(tokenA, profitAmount);
+      
       return {
         id: `${tokenA.symbol}_${tokenB.symbol}_${Date.now()}`,
         tokenA,
@@ -219,6 +222,7 @@ export class ArbitrageDetector extends EventEmitter {
         sellPool,
         profitPercentage,
         profitAmount,
+        potentialEarningsUSD,
         inputAmount: testAmount,
         confidence: this.calculateConfidence(buyPool, sellPool, profitPercentage),
         timestamp: Date.now(),
@@ -236,6 +240,25 @@ export class ArbitrageDetector extends EventEmitter {
     const slippageMultiplier = 1 - slippage;
     const minAmount = BigInt(amount) * BigInt(Math.floor(slippageMultiplier * 1000)) / 1000n;
     return minAmount.toString();
+  }
+
+  private async estimateEarningsInUSD(token: Token, profitAmount: string): Promise<number> {
+    try {
+      // Get the current price of the token in USD
+      const priceData = this.priceMonitor.getPrice(token.address);
+      if (!priceData) {
+        return 0;
+      }
+      
+      // Convert profit amount to USD
+      const profitInToken = parseFloat(ethers.formatUnits(profitAmount, token.decimals));
+      const profitInUSD = profitInToken * priceData.price;
+      
+      return profitInUSD;
+    } catch (error) {
+      console.error('Error estimating earnings in USD:', error);
+      return 0;
+    }
   }
 
   private calculateConfidence(buyPool: Pool, sellPool: Pool, profitPercentage: number): number {

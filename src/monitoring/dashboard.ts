@@ -343,15 +343,16 @@ export class MonitoringDashboard {
         </div>
 
         <div class="card full-width">
-            <h3>💰 Recent Opportunities</h3>
+            <h3>💰 Real-Time Arbitrage Opportunities</h3>
             <table id="opportunities-table">
                 <thead>
                     <tr>
                         <th>Time</th>
                         <th>Pair</th>
                         <th>Profit %</th>
+                        <th>Potential Earnings</th>
                         <th>Protocols</th>
-                        <th>Status</th>
+                        <th>Confidence</th>
                     </tr>
                 </thead>
                 <tbody id="opportunities-body"></tbody>
@@ -406,12 +407,15 @@ export class MonitoringDashboard {
             tbody.innerHTML = '';
             opportunities.slice(0, 10).forEach(opp => {
                 const row = tbody.insertRow();
+                const earnings = opp.potentialEarningsUSD ? '$' + opp.potentialEarningsUSD.toFixed(2) : 'N/A';
+                const confidence = opp.confidence ? (opp.confidence * 100).toFixed(0) + '%' : 'N/A';
                 row.innerHTML = \`
                     <td>\${new Date(opp.timestamp).toLocaleTimeString()}</td>
                     <td>\${opp.tokenA.symbol}/\${opp.tokenB.symbol}</td>
                     <td class="profit">\${opp.profitPercentage.toFixed(3)}%</td>
+                    <td class="profit">\${earnings}</td>
                     <td>\${opp.buyPool.protocol} → \${opp.sellPool.protocol}</td>
-                    <td>Detected</td>
+                    <td>\${confidence}</td>
                 \`;
             });
         }
@@ -427,7 +431,14 @@ export class MonitoringDashboard {
                         updateStatus(data.data);
                         break;
                     case 'opportunity':
-                        addToLog(\`💎 New opportunity: \${data.data.tokenA.symbol}/\${data.data.tokenB.symbol} - \${data.data.profitPercentage.toFixed(3)}%\`);
+                        const earnings = data.data.potentialEarningsUSD ? 
+                            'Potential earnings: $' + data.data.potentialEarningsUSD.toFixed(2) : 
+                            '';
+                        addToLog(\`💎 New opportunity: \${data.data.tokenA.symbol}/\${data.data.tokenB.symbol} - \${data.data.profitPercentage.toFixed(3)}% \${earnings}\`);
+                        // Update opportunities table with new opportunity
+                        fetch('/api/opportunities?limit=10')
+                            .then(response => response.json())
+                            .then(updateOpportunities);
                         break;
                     case 'trade':
                         const status = data.data.success ? '✅' : '❌';

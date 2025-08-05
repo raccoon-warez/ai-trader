@@ -104,6 +104,10 @@ TRADING_ENABLED=false npm run dev
 
 Open your browser to `http://localhost:3000` to access the real-time monitoring dashboard.
 
+![AI Arbitrage Trader Dashboard](dashboard-screenshot.png)
+
+*Real-time arbitrage opportunities with potential earnings estimation*
+
 ## 🏗️ Architecture
 
 ```

@@ -26,6 +26,7 @@ export interface ArbitrageOpportunity {
   sellPool: Pool;
   profitPercentage: number;
   profitAmount: string;
+  potentialEarningsUSD?: number;
   inputAmount: string;
   confidence: number;
   timestamp: number;

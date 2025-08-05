@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Arbitrage Trader Dashboard - Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: #fff; }
+        .header { background: #2d2d2d; padding: 1rem; border-bottom: 2px solid #007acc; }
+        .header h1 { color: #007acc; }
+        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem; }
+        .card { background: #2d2d2d; border-radius: 8px; padding: 1rem; border: 1px solid #444; }
+        .card h3 { color: #007acc; margin-bottom: 1rem; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .status-item { padding: 0.5rem; background: #3d3d3d; border-radius: 4px; }
+        .status-item strong { color: #4CAF50; }
+        .controls { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .btn { padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-start { background: #4CAF50; color: white; }
+        .btn-stop { background: #f44336; color: white; }
+        .btn-emergency { background: #ff6b00; color: white; }
+        .log { height: 300px; overflow-y: auto; background: #1a1a1a; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 12px; }
+        .profit { color: #4CAF50; }
+        .loss { color: #f44336; }
+        .warning { color: #ff9800; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid #444; }
+        th { background: #3d3d3d; }
+        .full-width { grid-column: 1 / -1; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 AI Arbitrage Trader Dashboard - Test</h1>
+        <div class="controls">
+            <button class="btn btn-start" onclick="startTrading()">Start Trading</button>
+            <button class="btn btn-stop" onclick="stopTrading()">Stop Trading</button>
+            <button class="btn btn-emergency" onclick="emergencyStop()">Emergency Stop</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3>📊 System Status</h3>
+            <div id="status" class="status-grid">
+                <div class="status-item">
+                    <div>Trading Status</div>
+                    <strong id="trading-status">Loading...</strong>
+                </div>
+                <div class="status-item">
+                    <div>Opportunities Found</div>
+                    <strong id="opportunities-count">0</strong>
+                </div>
+                <div class="status-item">
+                    <div>Successful Trades</div>
+                    <strong id="successful-trades">0</strong>
+                </div>
+                <div class="status-item">
+                    <div>Total Profit</div>
+                    <strong id="total-profit" class="profit">$0.00</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Risk Metrics</h3>
+            <div id="risk-metrics" class="status-grid">
+                <div class="status-item">
+                    <div>Active Trades</div>
+                    <strong id="active-trades">0</strong>
+                </div>
+                <div class="status-item">
+                    <div>Daily Volume</div>
+                    <strong id="daily-volume">$0.00</strong>
+                </div>
+                <div class="status-item">
+                    <div>Risk Level</div>
+                    <strong id="risk-level">LOW</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h3>💰 Real-Time Arbitrage Opportunities</h3>
+            <table id="opportunities-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Pair</th>
+                        <th>Profit %</th>
+                        <th>Potential Earnings</th>
+                        <th>Protocols</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody id="opportunities-body"></tbody>
+            </table>
+        </div>
+
+        <div class="card full-width">
+            <h3>📈 Live Feed</h3>
+            <div id="live-log" class="log"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data for testing
+        const mockOpportunities = [
+            {
+                id: "ETH_USDC_1234567890",
+                tokenA: { symbol: "ETH", decimals: 18 },
+                tokenB: { symbol: "USDC", decimals: 6 },
+                buyPool: { protocol: "Uniswap V2" },
+                sellPool: { protocol: "Sushiswap" },
+                profitPercentage: 1.25,
+                potentialEarningsUSD: 15.75,
+                confidence: 0.85,
+                timestamp: Date.now() - 10000
+            },
+            {
+                id: "WBTC_USDT_1234567891",
+                tokenA: { symbol: "WBTC", decimals: 8 },
+                tokenB: { symbol: "USDT", decimals: 6 },
+                buyPool: { protocol: "Uniswap V3" },
+                sellPool: { protocol: "PancakeSwap" },
+                profitPercentage: 0.87,
+                potentialEarningsUSD: 8.32,
+                confidence: 0.72,
+                timestamp: Date.now() - 5000
+            },
+            {
+                id: "DAI_USDC_1234567892",
+                tokenA: { symbol: "DAI", decimals: 18 },
+                tokenB: { symbol: "USDC", decimals: 6 },
+                buyPool: { protocol: "Balancer" },
+                sellPool: { protocol: "Curve" },
+                profitPercentage: 0.45,
+                potentialEarningsUSD: 2.15,
+                confidence: 0.91,
+                timestamp: Date.now() - 2000
+            }
+        ];
+
+        let isTrading = false;
+        let opportunitiesCount = 0;
+        let successfulTrades = 0;
+        let totalProfit = 0;
+
+        function startTrading() {
+            isTrading = true;
+            updateStatus();
+            addToLog('🟢 Trading started');
+            
+            // Simulate finding opportunities
+            simulateOpportunities();
+        }
+
+        function stopTrading() {
+            isTrading = false;
+            updateStatus();
+            addToLog('🔴 Trading stopped');
+        }
+
+        function emergencyStop() {
+            if (confirm('Are you sure you want to trigger emergency stop?')) {
+                isTrading = false;
+                updateStatus();
+                addToLog('🚨 Emergency stop activated');
+            }
+        }
+
+        function addToLog(message) {
+            const log = document.getElementById('live-log');
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML += `<div>[${time}] ${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function updateStatus() {
+            document.getElementById('trading-status').textContent = isTrading ? 'Running' : 'Stopped';
+            document.getElementById('opportunities-count').textContent = opportunitiesCount;
+            document.getElementById('successful-trades').textContent = successfulTrades;
+            document.getElementById('total-profit').textContent = '$' + totalProfit.toFixed(2);
+        }
+
+        function updateOpportunities(opportunities) {
+            const tbody = document.getElementById('opportunities-body');
+            tbody.innerHTML = '';
+            opportunities.slice(0, 10).forEach(opp => {
+                const row = tbody.insertRow();
+                const earnings = opp.potentialEarningsUSD ? '$' + opp.potentialEarningsUSD.toFixed(2) : 'N/A';
+                const confidence = opp.confidence ? (opp.confidence * 100).toFixed(0) + '%' : 'N/A';
+                row.innerHTML = `
+                    <td>${new Date(opp.timestamp).toLocaleTimeString()}</td>
+                    <td>${opp.tokenA.symbol}/${opp.tokenB.symbol}</td>
+                    <td class="profit">${opp.profitPercentage.toFixed(3)}%</td>
+                    <td class="profit">${earnings}</td>
+                    <td>${opp.buyPool.protocol} → ${opp.sellPool.protocol}</td>
+                    <td>${confidence}</td>
+                `;
+            });
+        }
+
+        function simulateOpportunities() {
+            if (!isTrading) return;
+            
+            // Update opportunities display
+            updateOpportunities(mockOpportunities);
+            
+            // Simulate new opportunities being found
+            setInterval(() => {
+                if (!isTrading) return;
+                
+                // Create a new mock opportunity
+                const tokens = [
+                    { symbol: "ETH", decimals: 18 },
+                    { symbol: "USDC", decimals: 6 },
+                    { symbol: "WBTC", decimals: 8 },
+                    { symbol: "USDT", decimals: 6 },
+                    { symbol: "DAI", decimals: 18 }
+                ];
+                
+                const protocols = ["Uniswap V2", "Uniswap V3", "Sushiswap", "PancakeSwap", "Balancer", "Curve"];
+                
+                const tokenA = tokens[Math.floor(Math.random() * tokens.length)];
+                const tokenB = tokens[Math.floor(Math.random() * tokens.length)];
+                while (tokenB.symbol === tokenA.symbol) {
+                    tokenB = tokens[Math.floor(Math.random() * tokens.length)];
+                }
+                
+                const buyProtocol = protocols[Math.floor(Math.random() * protocols.length)];
+                let sellProtocol;
+                do {
+                    sellProtocol = protocols[Math.floor(Math.random() * protocols.length)];
+                } while (sellProtocol === buyProtocol);
+                
+                const newOpportunity = {
+                    id: `${tokenA.symbol}_${tokenB.symbol}_${Date.now()}`,
+                    tokenA: tokenA,
+                    tokenB: tokenB,
+                    buyPool: { protocol: buyProtocol },
+                    sellPool: { protocol: sellProtocol },
+                    profitPercentage: Math.random() * 3 + 0.1, // 0.1% to 3.1%
+                    potentialEarningsUSD: Math.random() * 50 + 1, // $1 to $51
+                    confidence: Math.random(), // 0 to 1
+                    timestamp: Date.now()
+                };
+                
+                // Add to mock opportunities (keep only last 10)
+                mockOpportunities.unshift(newOpportunity);
+                if (mockOpportunities.length > 10) {
+                    mockOpportunities.pop();
+                }
+                
+                // Update display
+                updateOpportunities(mockOpportunities);
+                
+                // Add to log
+                const earnings = newOpportunity.potentialEarningsUSD ? 
+                    'Potential earnings: $' + newOpportunity.potentialEarningsUSD.toFixed(2) : 
+                    '';
+                addToLog(`💎 New opportunity: ${newOpportunity.tokenA.symbol}/${newOpportunity.tokenB.symbol} - ${newOpportunity.profitPercentage.toFixed(3)}% ${earnings}`);
+                
+                // Update counters
+                opportunitiesCount++;
+                updateStatus();
+                
+            }, 3000); // New opportunity every 3 seconds
+        }
+
+        // Initialize with mock data
+        updateOpportunities(mockOpportunities);
+        updateStatus();
+        addToLog('🔧 Dashboard initialized with mock data');
+        addToLog('💡 Click "Start Trading" to begin simulation');
+    </script>
+</body>
+</html>
