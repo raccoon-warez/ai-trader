@@ -108,6 +108,8 @@ Open your browser to `http://localhost:3000` to access the real-time monitoring 
 
 *Real-time arbitrage opportunities with potential earnings estimation*
 
+*Note: The screenshot may not display properly on GitHub. For details about the enhancements, see [ENHANCEMENTS.md](ENHANCEMENTS.md)*
+
 ## 🏗️ Architecture
 
 ```

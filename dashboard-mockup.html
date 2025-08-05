@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Arbitrage Trader Dashboard Mockup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: #fff; padding: 20px; }
+        .header { background: #2d2d2d; padding: 1rem; border-bottom: 2px solid #007acc; border-radius: 8px; margin-bottom: 1rem; }
+        .header h1 { color: #007acc; }
+        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .card { background: #2d2d2d; border-radius: 8px; padding: 1rem; border: 1px solid #444; }
+        .card h3 { color: #007acc; margin-bottom: 1rem; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .status-item { padding: 0.5rem; background: #3d3d3d; border-radius: 4px; }
+        .status-item strong { color: #4CAF50; }
+        .controls { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .btn { padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-start { background: #4CAF50; color: white; }
+        .btn-stop { background: #f44336; color: white; }
+        .btn-emergency { background: #ff6b00; color: white; }
+        .log { height: 200px; overflow-y: auto; background: #1a1a1a; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 12px; }
+        .profit { color: #4CAF50; }
+        .loss { color: #f44336; }
+        .warning { color: #ff9800; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid #444; }
+        th { background: #3d3d3d; }
+        .full-width { grid-column: 1 / -1; }
+        .highlight { background: #3d3d3d; padding: 10px; border-radius: 4px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 AI Arbitrage Trader Dashboard</h1>
+        <div class="controls">
+            <button class="btn btn-start">Start Trading</button>
+            <button class="btn btn-stop">Stop Trading</button>
+            <button class="btn btn-emergency">Emergency Stop</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3>📊 System Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div>Trading Status</div>
+                    <strong>Running</strong>
+                </div>
+                <div class="status-item">
+                    <div>Opportunities Found</div>
+                    <strong>24</strong>
+                </div>
+                <div class="status-item">
+                    <div>Successful Trades</div>
+                    <strong>18</strong>
+                </div>
+                <div class="status-item">
+                    <div>Total Profit</div>
+                    <strong class="profit">$427.83</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Risk Metrics</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div>Active Trades</div>
+                    <strong>2</strong>
+                </div>
+                <div class="status-item">
+                    <div>Daily Volume</div>
+                    <strong>$12,450.75</strong>
+                </div>
+                <div class="status-item">
+                    <div>Risk Level</div>
+                    <strong>LOW</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h3>💰 Real-Time Arbitrage Opportunities</h3>
+            <div class="highlight">
+                <p><strong>Enhanced Features:</strong></p>
+                <ul>
+                    <li><span class="profit">Potential Earnings</span> column shows estimated USD profits</li>
+                    <li><span class="profit">Confidence</span> column shows AI confidence scores</li>
+                    <li>Real-time updates as new opportunities are detected</li>
+                </ul>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Pair</th>
+                        <th>Profit %</th>
+                        <th>Potential Earnings</th>
+                        <th>Protocols</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>17:45:23</td>
+                        <td>ETH/USDC</td>
+                        <td class="profit">1.25%</td>
+                        <td class="profit">$15.75</td>
+                        <td>Uniswap V2 → Sushiswap</td>
+                        <td>85%</td>
+                    </tr>
+                    <tr>
+                        <td>17:45:18</td>
+                        <td>WBTC/USDT</td>
+                        <td class="profit">0.87%</td>
+                        <td class="profit">$8.32</td>
+                        <td>Uniswap V3 → PancakeSwap</td>
+                        <td>72%</td>
+                    </tr>
+                    <tr>
+                        <td>17:45:12</td>
+                        <td>DAI/USDC</td>
+                        <td class="profit">0.45%</td>
+                        <td class="profit">$2.15</td>
+                        <td>Balancer → Curve</td>
+                        <td>91%</td>
+                    </tr>
+                    <tr>
+                        <td>17:45:05</td>
+                        <td>LINK/ETH</td>
+                        <td class="profit">0.68%</td>
+                        <td class="profit">$4.20</td>
+                        <td>Sushiswap → Uniswap V2</td>
+                        <td>63%</td>
+                    </tr>
+                    <tr>
+                        <td>17:44:58</td>
+                        <td>UNI/USDC</td>
+                        <td class="profit">1.12%</td>
+                        <td class="profit">$9.80</td>
+                        <td>Uniswap V3 → Balancer</td>
+                        <td>78%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card full-width">
+            <h3>📈 Live Feed</h3>
+            <div class="log">
+                <div>[17:45:23] 💎 New opportunity: ETH/USDC - 1.25% Potential earnings: $15.75</div>
+                <div>[17:45:18] 💎 New opportunity: WBTC/USDT - 0.87% Potential earnings: $8.32</div>
+                <div>[17:45:12] 💎 New opportunity: DAI/USDC - 0.45% Potential earnings: $2.15</div>
+                <div>[17:45:05] 💎 New opportunity: LINK/ETH - 0.68% Potential earnings: $4.20</div>
+                <div>[17:44:58] 💎 New opportunity: UNI/USDC - 1.12% Potential earnings: $9.80</div>
+                <div>[17:44:52] ✅ Trade executed: Success</div>
+                <div>[17:44:45] 💎 New opportunity: AAVE/ETH - 0.95% Potential earnings: $6.45</div>
+                <div>[17:44:38] 🟢 Trading started</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
